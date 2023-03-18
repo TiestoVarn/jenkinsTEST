@@ -8,12 +8,12 @@ pipeline {
         stage('Build') {
             steps {
                 //
-                sh "scripts/build1.sh"
+                sh "sudo scripts/build1.sh"
             }
         }
         stage('Test') {
             steps {
-                sh "scripts/test1.sh"
+                sh "sudo scripts/test1.sh"
             }
         }
         stage('Create docker image') {
