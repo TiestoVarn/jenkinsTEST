@@ -25,9 +25,10 @@ pipeline {
     stage('Deploy') {
       steps {
           script {
-              def IMAGE_ID = sh(script: """docker images -q nodeproject:v2.1""", returnStdout: true).trim()
-                sh "docker ps -aq | xargs docker stop | xargs docker rm"
-                sh "docker run -d --expose 3001 -p 3001:3000 ${IMAGE_ID}"
+              def CONTAINER_ID = sh(script: """docker container ls --all | grep nodeproject:v2.1 | cut -d' ' -f1""", returnStdout: true).trim()
+                sh "docker stop ${CONTAINER_ID}"
+                // sh "docker ps -aq | xargs docker stop | xargs docker rm"
+                sh "docker run -d --expose 3001 -p 3001:3000 nodeproject:v2.1"
           }
       }
     }
