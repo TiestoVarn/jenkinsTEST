@@ -26,7 +26,7 @@ pipeline {
       steps {
           script {
               def IMAGE_ID = sh(script: """docker images -q nodeproject:v2.0""", returnStdout: true).trim()
-                sh 'docker run -it --expose 3000 -p 3000:3000 "${IMAGE_ID}"'
+                sh "docker run -d --expose 3000 -p 3000:3000 ${IMAGE_ID}"
           }
       }
     }
