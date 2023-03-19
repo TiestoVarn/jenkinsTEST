@@ -26,9 +26,13 @@ pipeline {
       steps {
           script {
               def CONTAINER_ID = sh(script: """docker container ls --all | grep nodeproject:v2.1 | cut -d' ' -f1""", returnStdout: true).trim()
-                sh "docker ps -a -f status=exited"
+                // sh "docker ps -a -f status=exited"
+                // sh "docker stop ${CONTAINER_ID} || true"
+                // sh "docker rm \$(docker ps -a -f status=exited -q) || true"
+                // sh "docker run -d --expose 3001 -p 3001:3000 nodeproject:v2.1"
+                sh "docker ps -a -f status=up"
                 sh "docker stop ${CONTAINER_ID} || true"
-                sh "docker rm \$(docker ps -a -f status=exited -q) || true"
+                sh "docker rm ${CONTAINER_ID} || true"
                 sh "docker run -d --expose 3001 -p 3001:3000 nodeproject:v2.1"
           }
       }
